@@ -3,7 +3,7 @@
 ;type tool
 ;name "Suno URL Import"
 ;author "Suno Audacity Importer"
-;release 0.3.0
+;release 0.3.1
 ;copyright "GPL-3.0; see LICENSE"
 ;debugbutton false
 ;preview disabled

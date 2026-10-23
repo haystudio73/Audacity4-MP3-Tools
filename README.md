@@ -1,4 +1,4 @@
-# Suno → Audacity 4 — phiên bản 0.3.0
+# Suno → Audacity 4 — phiên bản 0.3.1
 
 ## Quick Install
 
@@ -34,7 +34,7 @@ Yêu cầu Windows, Audacity 4.0.1, Python 3.10+ có Tkinter, và `ffmpeg` cùng
 python install.py
 ```
 
-Installer tạo launcher và plugin với đường dẫn tuyệt đối tới thư mục hiện tại, rồi chép plugin vào `%APPDATA%\audacity\Audacity4\Plug-Ins`. Khởi động lại Audacity hoặc quét lại plugin nếu tool chưa xuất hiện. Khi chuyển thư mục dự án hoặc thay Python, chạy installer lại. Đóng rồi mở lại helper sau khi cập nhật mã Python.
+Installer tạo launcher và plugin với đường dẫn tuyệt đối tới thư mục hiện tại, rồi chép plugin vào `%APPDATA%\audacity\Audacity4\Plug-Ins`. Khởi động lại Audacity hoặc quét lại plugin nếu tool chưa xuất hiện. Khi chuyển thư mục dự án hoặc thay Python, chạy installer lại. Đóng rồi mở lại helper sau khi cập nhật mã Python. Bản 0.3.1 sửa hộp thoại Suno URL Import bị Audacity che phía sau; cần mở lại helper để áp dụng.
 
 ## Buy me a cup of coffe
 

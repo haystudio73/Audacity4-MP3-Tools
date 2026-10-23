@@ -4,6 +4,7 @@ No shell commands, clipboard changes, screen coordinates, or arbitrary window in
 """
 from __future__ import annotations
 import ctypes as C
+import os
 from ctypes import wintypes as W
 from dataclasses import dataclass
 from pathlib import Path
@@ -21,6 +22,11 @@ def bind(dll, name, result, *args):
 
 foreground = bind(U, "GetForegroundWindow", W.HWND)
 set_foreground = bind(U, "SetForegroundWindow", W.BOOL, W.HWND)
+set_window_long = bind(U, "SetWindowLongPtrW" if C.sizeof(PTR) == 8 else "SetWindowLongW",
+                       C.c_ssize_t, W.HWND, C.c_int, C.c_ssize_t)
+get_window = bind(U, "GetWindow", W.HWND, W.HWND, W.UINT)
+set_window_pos = bind(U, "SetWindowPos", W.BOOL, W.HWND, W.HWND,
+                      C.c_int, C.c_int, C.c_int, C.c_int, W.UINT)
 ancestor = bind(U, "GetAncestor", W.HWND, W.HWND, W.UINT)
 is_window = bind(U, "IsWindow", W.BOOL, W.HWND)
 visible = bind(U, "IsWindowVisible", W.BOOL, W.HWND)
@@ -119,6 +125,32 @@ def return_to_target(target):
         set_foreground(target.hwnd)
     except RuntimeError:
         pass
+
+
+def own_url_dialog(widget_id, target):
+    """Keep our mapped Tk dialog above its Audacity owner, without global topmost.
+
+    Tk winfo_id identifies the client window, so use GA_ROOT (not ROOTOWNER)
+    to find its native top-level wrapper. Only mutate our own window.
+    """
+    target.validate()
+    hwnd = ancestor(widget_id, 2)  # GA_ROOT
+    if not hwnd or pid(hwnd) != os.getpid() or hwnd == target.hwnd:
+        raise RuntimeError("Khong xac minh duoc cua so nhap URL cua helper.")
+    C.set_last_error(0)
+    previous = set_window_long(hwnd, -8, target.hwnd)  # GWLP_HWNDPARENT: owner, not parent
+    if not previous and C.get_last_error():
+        raise C.WinError(C.get_last_error())
+    if get_window(hwnd, 4) != target.hwnd:  # GW_OWNER
+        raise RuntimeError("Khong gan duoc hop thoai URL voi du an Audacity.")
+    # Ownership preserves ordering even if Audacity reactivates after Nyquist.
+    # SWP_NOSIZE | SWP_NOMOVE | SWP_NOACTIVATE | SWP_FRAMECHANGED
+    if not set_window_pos(hwnd, 0, 0, 0, 0, 0, 0x0033):
+        raise C.WinError(C.get_last_error())
+    current = foreground()
+    if current == hwnd or ancestor(current, 3) == target.hwnd or pid(current) == os.getpid():
+        set_foreground(hwnd)
+    return hwnd
 
 def message(hwnd, msg, wparam=0, lparam=0):
     result = PTR()

@@ -80,6 +80,7 @@ def main():
 
     def show_url_dialog(target, reply, ready):
         dialog = tk.Toplevel(root)
+        dialog.withdraw()
         dialog.title("Suno URL Import")
         dialog.resizable(True, False)
         dialog.geometry("720x235")
@@ -128,8 +129,32 @@ def main():
         dialog.protocol("WM_DELETE_WINDOW", finish)
         dialog.bind("<Escape>", lambda _event: finish())
         dialog.bind("<Return>", lambda _event: submit())
-        dialog.lift()
-        entry.focus_force()
+
+        def destroyed(event):
+            # Windows also destroys owned dialogs when their Audacity owner closes.
+            if event.widget is dialog and not reply:
+                reply.append(None)
+                ready.set()
+
+        dialog.bind("<Destroy>", destroyed)
+        def present():
+            try:
+                dialog.deiconify()
+                dialog.update_idletasks()
+                hwnd = windows.own_url_dialog(dialog.winfo_id(), target)
+                if windows.foreground() == hwnd:
+                    entry.focus_set()
+            except (RuntimeError, OSError, tk.TclError) as exc:
+                # Always release the waiting worker if presentation fails.
+                reply.append(exc)
+                try:
+                    dialog.destroy()
+                except tk.TclError:
+                    pass
+                ready.set()
+
+        # Let the menu's Nyquist invocation finish before requesting activation.
+        dialog.after(200, present)
 
     def update(message, **extra):
         updates.put((message, extra))
@@ -157,6 +182,8 @@ def main():
                         if stopped.is_set():
                             return
                     url = reply[0]
+                    if isinstance(url, Exception):
+                        raise url
                     if url is None:
                         update("Đã hủy. Sẵn sàng nhận yêu cầu mới.", state="cancelled")
                         continue
