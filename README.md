@@ -19,7 +19,11 @@ Cần Internet khi tải thành phần còn thiếu. Nếu máy chưa có WinGet
 ## Sử dụng
 
 1. Mở `Start Suno Helper.vbs`. Giữ helper chạy; có thể thu nhỏ cửa sổ.
+<img width="636" height="294" alt="image" src="https://github.com/user-attachments/assets/3549fa31-05c6-46dc-9cd0-d8ca0bb305e6" />
+
 2. Trong dự án Audacity muốn nhập audio, chọn **Tools → Nyquist → Suno Audacity Importer → Suno URL Import**. Cách nhóm menu có thể khác theo cấu hình plugin.
+<img width="1005" height="683" alt="image" src="https://github.com/user-attachments/assets/afe50e93-4e8c-4d13-8ab9-d50f8491b834" />
+
 3. Plugin kiểm tra helper ngay khi chọn menu. Nếu chưa chạy, thông báo yêu cầu mở **Start Suno Helper.vbs**; mở helper rồi chọn lại menu.
 4. Trong hộp thoại **Suno URL Import** của helper, dán URL dạng `https://suno.com/song/UUID` hoặc URL MP3 public, nhấn **Import**. Nút **✕ Xóa** xóa toàn bộ URL và đưa con trỏ về ô nhập. **Hủy** hoặc Escape đóng hộp thoại mà không tải audio.
 5. Giữ hoặc đưa cửa sổ dự án đó về phía trước khi helper yêu cầu. Helper tự mở hộp thoại Import và nhập audio thành track. Theo dõi tiến trình/lỗi trong cửa sổ helper.
