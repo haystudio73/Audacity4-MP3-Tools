@@ -26,7 +26,9 @@ Cần Internet khi tải thành phần còn thiếu. Nếu máy chưa có WinGet
 
 3. Plugin kiểm tra helper ngay khi chọn menu. Nếu chưa chạy, thông báo yêu cầu mở **Start Suno Helper.vbs**; mở helper rồi chọn lại menu.
 4. Trong hộp thoại **Suno URL Import** của helper, dán URL dạng `https://suno.com/song/UUID` hoặc URL MP3 public, nhấn **Import**. Nút **✕ Xóa** xóa toàn bộ URL và đưa con trỏ về ô nhập. **Hủy** hoặc Escape đóng hộp thoại mà không tải audio.
-5. Giữ hoặc đưa cửa sổ dự án đó về phía trước khi helper yêu cầu. Helper tự mở hộp thoại Import và nhập audio thành track. Theo dõi tiến trình/lỗi trong cửa sổ helper.
+5. Giữ hoặc đưa cửa sổ dự án đó về phía trước khi helper yêu cầu. Helper tự mở hộp thoại Import và nhập audio thành track.
+
+✴️✴️✴️ Nếu Helper báo lỗi không import được MP3 (403): Hãy mở lại link nhạc Suno trong website, nhấn F5 để refresh. Sau đó quay lại mở tools Import lại!
 
 MP3 được giữ trong `downloads/`. Helper không tự lưu dự án Audacity. Nếu dự án bị đóng hoặc cửa sổ đích không sẵn sàng trong 90 giây, thao tác import báo lỗi; MP3 đã tải vẫn còn để nhập thủ công.
 
