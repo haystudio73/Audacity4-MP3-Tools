@@ -1,4 +1,4 @@
-# Suno → Audacity 4 — phiên bản 0.3.1
+# Import Suno MP3 public direct to → Audacity 4
 
 ## Quick Install
 
@@ -42,7 +42,11 @@ Installer tạo launcher và plugin với đường dẫn tuyệt đối tới t
 
 ## Buy me a cup of coffe
 
+❤️❤️❤️ Nếu bạn yêu thích mã nguồn này ❤️❤️❤️ HÃY MỜI TÔI 1 LY CAFE (Momo QR)!
 
+<img width="390" height="422" alt="image" src="https://github.com/user-attachments/assets/8d0590a0-1bf7-4ff8-aed9-b224b0325706" />
+
+Thanks, and good luck!
 
 
 
