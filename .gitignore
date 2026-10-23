@@ -1,0 +1,18 @@
+.tooling/
+research/audacity-source/
+tmp/
+__pycache__/
+*.pyc
+downloads/
+runtime/
+
+# Generated for the local Python executable and project location.
+/Start Suno Helper.vbs
+/plugin/suno-url-import.ny
+*.ny.bak
+
+# Local research inputs and downloaded upstream sources.
+/research/*
+!/research/COMPATIBILITY.md
+.env
+.env.*
